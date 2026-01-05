@@ -27,7 +27,7 @@ exports.loginUser = asyncHandler(async (req, res) => {
         return res.status(401).json({ message: "Invalid Password !" })
     }
     const token = jwt.sign({ _id: result._id, name: result.name }, process.env.JWT_KEY)
-    res.cookie("USER", token, { maxAge: 1000 * 60 * 60 * 24, httpOnly: true, secure: false })
+    res.cookie("USER", token, { maxAge: 1000 * 60 * 60 * 24, httpOnly: true, secure: false, sameSite: "none" })
     res.json({
         message: "User Login Success", result: {
             _id: result._id,
